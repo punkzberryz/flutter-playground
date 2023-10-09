@@ -155,18 +155,22 @@ class AuthRepository {
 
   void _setRefreshTokenInterval(CognitoUserSession session) {
     final token = session.accessToken.jwtToken;
-    if (token == null) {
+    final refreshToken = session.refreshToken;
+    if (token == null || refreshToken == null) {
       return;
     }
     int expiredInSeconds = JwtDecoder.getRemainingTime(token).inSeconds;
-    if (expiredInSeconds < 5) expiredInSeconds = 5;
+    if (expiredInSeconds < 2) expiredInSeconds = 2;
 
-    print('set new interval with duration of $expiredInSeconds');
+    print('set new interval with duration of ${expiredInSeconds - 5} seconds');
     Future.delayed(Duration(seconds: expiredInSeconds - 5), () async {
+      print('refreshing token..');
+
       if (_auth == null) {
         return;
       }
-      final session = await _auth!.getSession();
+
+      final session = await _auth!.refreshSession(refreshToken);
       _authStateController.add(session);
       if (session == null) {
         //session is invalid, let's remove _auth too
