@@ -12,11 +12,15 @@ class Home extends HookConsumerWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         TextButton(
-          onPressed: () => context.goNamed(AppRoute.myHome.name),
+          onPressed: () => context.pushNamed(AppRoute.myHome.name),
           child: Text('MyHome'),
         ),
         TextButton(
-          onPressed: () => context.goNamed(AppRoute.b.name),
+          onPressed: () => context.pushNamed(AppRoute.signupWithEmail.name),
+          child: Text('signUpWithEmail'),
+        ),
+        TextButton(
+          onPressed: () => context.pushNamed(AppRoute.b.name),
           child: Text('b'),
         ),
       ],

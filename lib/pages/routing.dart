@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_playground/pages/auth/signup_with_email.dart';
 import 'package:flutter_playground/pages/bottom_navbar.dart';
 import 'package:flutter_playground/pages/home.dart';
 import 'package:flutter_playground/pages/my_home.dart';
@@ -10,6 +11,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 enum AppRoute {
   home,
   myHome,
+  signupWithEmail,
   b,
 }
 
@@ -46,6 +48,12 @@ final routeProvider = Provider<GoRouter>(
                   pageBuilder: (context, state) => NoTransitionPage(
                       key: state.pageKey,
                       child: const MyHomePage(title: 'Flutter Demo Home Page')),
+                ),
+                GoRoute(
+                  name: AppRoute.signupWithEmail.name,
+                  path: 'signupWithEmail',
+                  pageBuilder: (context, state) => NoTransitionPage(
+                      key: state.pageKey, child: const SignUpWithEmail()),
                 ),
               ],
             ),
